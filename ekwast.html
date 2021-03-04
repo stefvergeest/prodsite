@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <title>Ekwast</title>
+    <link href="menu.css" rel="stylesheet" type="text/css" >
+    <style>
+        /*ALGEMENE SETTING*/
+        /*=======================================================================*/
+        * {box-sizing: border-box; position: relative;}
+        html, body, main{margin:0px; width:100%;height:100%; position: relative;}
+        /*-----------------------------------------------------------------------*/
+
+        /*SETTINGS OP GRIDNIVEAU, ALLE GROTE CONTAINERS VAN HET GRID */
+        /*=======================================================================*/
+        main{
+            /*omvang   */width:100%;height:100%;min-width: 800px;min-height: 600px;
+            /*opmaak   */background-color: black;
+            /*positie  is position relative met default (0,0) linksboven*/ 
+            /*grid     */display              :grid;  /* NU KAN DE BOEL ALS GRID WORDEN INGEDEELD */
+                         grid-template-rows   :80px 1fr 80px;    /* 3 rijen totale breedte is 100%, rij1 is 80, rij3 is 80, fr vult de boel op*/
+                         grid-template-columns:150px 1fr 150px;  /* 3 kolom totale breedte is 100%, colj1 is 150, col3 is 150, fr vult de boel op*/
+        }
+        header{
+            /*omvang   wordt geregeld door het grid, default 100%*/
+            /*opmaak   */background-color:orange;border: black solid 4px;border-radius: 25px;
+            /*grid     */grid-row: 1/2;grid-column: 1/4; /* de header neemt rij1 kol1 t/m kol3 */
+        }
+        aside{
+            /*opmaak   */background-color:magenta;border: black solid 4px;border-radius: 25px;
+        }
+        #links{
+            /*omvang   wordt geregeld door het grid, default 100%*/
+            /*grid     */grid-row: 2/3;grid-column: 1/2; /* de linkerbar neemt rij2 , kol1*/
+        }
+        #rechts{
+            /*omvang   wordt geregeld door het grid*/
+            /*grid     */grid-row: 2/3;grid-column: 3/4; /* de rechterbar neemt rij2 , kol3*/
+        }
+        #content{
+            /*omvang   wordt geregeld door het grid, default 100%*/
+            /*opmaak   */background-color:mediumblue;border:yellow solid 4px;border-radius: 125px;
+                         background-image: url("images/nachtwacht.jpg");background-position: center;
+            /*grid     */grid-row: 2/3;grid-column: 2/3; /* de content neemt rij2 , kol2*/
+        }
+        footer{
+            /*omvang   wordt geregeld door het grid, default 100%*/
+            /*opmaak   */background-color:darkolivegreen;border: black solid 4px;border-radius: 25px;
+            /*grid     */grid-row: 3/4;grid-column: 1/4; /* de footer neemt rij3 , kol1 t/m kol3 */
+        }
+        /*-----------------------------------------------------------------------*/
+
+        /*DE TEKSTEN OP DE SITE*/
+        /*=======================================================================*/
+        #sitenaam{  /* de tekst midden op de header, de site naam */
+            /*omvang   */width:300px;
+            /*opmaak   */font-size: 2em;font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;text-align: center;
+            /*positie  */position:absolute;top:20px;left:50%;margin-left:-150px;
+         }
+         #welkomtekst{ /* de tekst midden op de content, het welkomswoord verspreid over twee kolommen */
+            /*omvang   */width:60%;height:200px;overflow:hidden;column-count:2;
+            /*opmaak   */font-size:2em;font-family:cursive;color:aqua;
+            /*positie  */position:absolute;top:50px;left:50%;margin-left:-30%;
+        }
+        #footertekst{ /* de tekst onder in de footer */
+            /*omvang   */width:60%;height:60px;overflow:hidden;
+            /*opmaak   */font-size:2em;font-family:cursive;color:aliceblue;text-align: center; 
+            /*positie  */position:absolute;top:5px;left:50%;margin-left:-30%;
+        }
+        #motto{ /* de tekst in het welkomswoord, het is een span dus omvang en positie niet nodig   */
+            /*opmaak   */font-weight: bold; color:white;
+        }
+        /*-----------------------------------------------------------------------*/
+
+        /*DE VASTE PLAATJES OP DE SITE*/
+        /*=======================================================================*/
+        #logocontainer{ /* De container voor het bedrijfslogo links bovenin */
+            /*omvang   */width:300px;height:78px;
+            /*opmaak   */
+            /*positie  */position:absolute;top:1px;left:1px;
+        }
+        #kwastlogo{ /* de img binnen de logocontainer. (#logocontainer>img had ook gekund) */
+            /*omvang   */height:100px; margin-top:-10px
+        }
+        .zijplaatje1{/* de imgs bovenin de aside containers. */
+            /*omvang   */width:100%;border-radius: 25px;
+            /*positie is default bovenin */
+        }
+        .zijplaatje2{/* de imgs in het midden van de aside containers. */
+            /*omvang   */width:100%;
+            /*positie  */position: absolute;top:50%;left:0px;
+        }
+        /*-----------------------------------------------------------------------*/
+
+         /*DE MENUBAR RECHTSBOVENIN*/
+        /*=======================================================================*/
+        #menubar{ /* Deze container zal het UL menu gaan bevatten */
+            /*omvang   */width:350px; height:60px;
+            /*opmaak   */ z-index: 5; /* een menu moet over de containers displayen */
+            /*positie  */position:absolute;top:10px;right:5px;
+        }
+        /*-----------------------------------------------------------------------*/
+ 
+        /*DE FLEXBOX OBJECTEN*/
+        /*============================================================*/
+        #assortiment{ /* Deze container wordt een flexbox. Objecten kunnen derhalve hierin eenvoudig georganiseerd worden */
+            /*omvang   */overflow:auto;
+            /*opmaak   */background-color:lightskyblue;border:10px solid black;border-radius: 25px;
+            /*positie  */position:absolute;top:240px;bottom:5px;left:5%;right:5%;  /* de omvang wordt hier ook door bepaald */
+            /*flex     */display:flex; /* nu kunnen er flexbox instellingen worden gebruikt */
+                        flex-wrap:wrap;
+                        align-content:flex-start;
+                        justify-content: space-between;
+        }
+        .artikeldiv{ /* In deze div's staan de img's en wat tekst over de artikelen. Deze komen in de flexbox */
+            /*omvang   */width: 220px;   /* is nodig anders strechted hij */
+            /*opmaak   */text-align: center;
+        }
+        .artikel{ /* In deze img's staan de plaatjes van de artikelen */
+            /*omvang   */width: 160px;   /* is nodig anders strechted hij */
+                         overflow:hidden; /*overflow nodig om ze te laten krimpen, is niet echt nodig */
+        }
+        .artikel:hover{ /* Als er over het plaatje wordt gehoverd moet deze eruit springen */
+            /*omvang   */width: 260px;
+        }
+        /*-----------------------------------------------------------------------*/
+    </style>
+</head>
+<body>
+    <main>
+        <header>
+            <div id="logocontainer">
+                <img id="kwastlogo" src="images/kwastlogo.png" alt="kwastlogo" />
+            </div>
+            <div id="sitenaam">De eigenwijze kwast</div>
+            <div id="menubar">
+                <ul class="menu">
+                    <li>
+                        <a href="#">menu 1</a>
+                        <ul>
+                            <li><a href="#">sub 1.1</a></li>
+                            <li><a href="#">sub 1.2</a></li>
+                            <li><a href="#">sub 1.3</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">menu 2</a>
+                        <ul>
+                            <li><a href="#">sub 2.1</a></li>
+                            <li><a href="#">sub 2.2</a></li>
+                            <li><a href="#">sub 2.3</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">menu 3</a>
+                        <ul>
+                            <li><a href="#">sub 3.1</a></li>
+                            <li><a href="#">sub 3.2</a></li>
+                            <li><a href="#">sub 3.3</a></li>
+                            <li><a href="#">sub 3.4</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+            </div>
+        </header>
+        <aside id="links">
+            <img class="zijplaatje1" src="images/drippingpaint2.png"  />
+            <img class="zijplaatje2" src="images/kandinsky.png"  />
+        </aside>
+        <section id="content">
+            hier staat de content
+            <section id="welkomtekst">
+                Welkom bij de eigenwijze kwast, schildersbedrijf sinds 1480. 
+                Ons eerlijk motto is al jaren,<span id="motto"> "een tevreden klant is mooi meegenomen..,
+                 en niet goed, geld weg" </span>
+            </section>
+            <section id="assortiment">
+                <div class="artikeldiv">mooie kwastset 2 euro<img class="artikel" src="images/kwast1.png"  /></div>
+                <div class="artikeldiv">ook een mooie set 5 euro <img class="artikel" src="images/kwast2.png" /></div>
+                <div class="artikeldiv">bij elkaar 10 euroo<img class="artikel" src="images/palette.png"  /></div>
+                <div class="artikeldiv">60 euro<img class="artikel" src="images/PaintBlue.png"  /></div>
+                <div class="artikeldiv">kwaliteits spul 30 euro<img class="artikel" src="images/PaintGreen.png"  /></div>
+                <div class="artikeldiv">K.Appel verf 30 euro<img class="artikel" src="images/tubes.png"  /></div>
+                <div class="artikeldiv">kwaliteits spul 40 euro<img class="artikel" src="images/PaintPurple.png"  /></div>
+                <div class="artikeldiv">kwaliteits spul 60 euro<img class="artikel" src="images/PaintRed.png"  /></div>
+                <div class="artikeldiv">rolt uitstekent 4 euro<img class="artikel" src="images/rollers.png"  /></div>
+                <div class="artikeldiv">spuitbus blauw 10 euro<img class="artikel" src="images/spuitBlue.png"  /></div> 
+                <div class="artikeldiv">lady Gaga set 2 euro<img class="artikel" src="images/SpuitRest.png"  /></div> 
+            </section>
+        </section>
+        <aside id="rechts">
+            <img class="zijplaatje1" src="images/drippingpaint1.png"  />
+            <img class="zijplaatje2" src="images/keukenkast.png"  />
+        </aside>
+        <footer>
+            <section id="footertekst">
+                Voor Kandinsky tot keukenkastje... Wij hebben het!!!!!
+            </section>
+        </footer>
+    </main>
+</body>
+</html>

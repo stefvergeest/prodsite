@@ -1,0 +1,44 @@
+ul.menu {
+    /* stap 1: verwijder de list style van de hoofd ul. Weg met de bullits */
+        list-style: none;  
+        width: 100%;
+        padding: 0;
+        margin: 0; 
+    /*1	border:black solid 2px */  /* om te kijken waar deze zich precies bevindt */
+    }
+    ul.menu> li { 
+    /* stap 2: zet de bovenste lijst elementen naast elkaar, en geef ze een breedte */
+        float: left;
+        width: 100px; /*2*/
+    }
+    ul.menu > li {
+    /* stap 8 : een beetje opmaak */
+        margin-left: 2px; /*8*/
+    }
+    ul.menu li ul{
+    /* stap 3: verwijder de list style van de lagere ul's. Weg met de bullits. alles staat nu recht onder elkaar*/
+        list-style: none;
+        width: 100%;
+        padding: 0;
+        margin: 0;   
+    /*3	border:red solid 2px;*/   /* om te kijken waar deze zich precies bevindt */
+    /* stap 4: verberg de lagere ul's*/
+        display:none;/*4*/
+    }
+    ul.menu li:hover ul{
+    /* stap 5: laat de ul verschijnen die onder de li ligt waarover je hovert*/
+        display: block;/*5*/ 
+    }
+    ul.menu li a{
+    /* stap 6: geef de a-tags de nodige opmaak. display: block is om de hele li-box te vullen */
+        background-color: #D5F800;
+        text-decoration: none;
+        font-family: Arial, Helvetica, sans-serif;
+        border: 1px black solid;
+        padding: 3px; 
+        display: block;/*6*/
+    }
+    ul.menu li a:hover{
+    /* stap 7: als je over een a-tag gaat, achtergrondkleur vervangen */
+        background-color: #FFE400; /*7*/
+    }
